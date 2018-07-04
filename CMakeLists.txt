@@ -14,8 +14,8 @@ file(GLOB_RECURSE SRC_MAIN src/*)
 find_package(Boost REQUIRED COMPONENTS program_options system)
 include_directories( ${Boost_INCLUDE_DIRS} )
 
-FIND_PACKAGE( Boost REQUIRED COMPONENTS program_options system)
+FIND_PACKAGE(Boost REQUIRED COMPONENTS program_options system)
 INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )
 
-add_executable(CPPA ${SRC_MAIN})
-TARGET_LINK_LIBRARIES(CPPA LINK_PUBLIC ${Boost_LIBRARIES} )
+add_executable(test ${SRC_MAIN})
+TARGET_LINK_LIBRARIES(test LINK_PUBLIC ${Boost_LIBRARIES} )
