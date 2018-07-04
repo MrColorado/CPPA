@@ -2,10 +2,10 @@
 
 #include "boost/graph/adjacency_matrix.hpp"
 
-template <class T>
+template <typename T>
 class Graphadapter
 {
-  typedef boost::adjacency_matrix<boost::undirectedS, T> Graph;
+  typedef boost::adjacency_matrix<boost::undirectedS, boost::property<boost::vertex_index_t, T>> Graph;
   using point_type = typename boost::graph_traits<Graph>::vertex_descriptor;
   using value_type = T;
   using pixel_type = std::pair<point_type, value_type>;
