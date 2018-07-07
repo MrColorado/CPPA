@@ -5,14 +5,26 @@
 template <typename T>
 class Graphadapter
 {
-  typedef boost::adjacency_matrix<boost::undirectedS, boost::property<boost::vertex_index_t, T>> Graph;
+public:
+
+  struct VertexProperties
+  {
+    unsigned pos_;
+    T value_;
+    VertexProperties(unsigned pos, T value)
+      : pos_(pos), value_(value)
+    {}
+  };
+
+  typedef boost::adjacency_matrix<boost::undirectedS, VertexProperties> Graph;
   using point_type = typename boost::graph_traits<Graph>::vertex_descriptor;
   using value_type = T;
   using pixel_type = std::pair<point_type, value_type>;
   using reference = T&;
   using const_reference = const T&;
 
-public:
+  using vertex_iter = typename boost::graph_traits<Graph>::vertex_iterator;
+
   Graphadapter(Graph graph);
   const_reference operator()(point_type p) const;
   reference operator()(point_type p);
