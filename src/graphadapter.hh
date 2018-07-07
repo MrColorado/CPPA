@@ -1,6 +1,7 @@
 #pragma once
 
 #include "boost/graph/adjacency_matrix.hpp"
+#include "boost/graph/adjacency_list.hpp"
 
 template <typename T>
 class Graphadapter
@@ -16,7 +17,8 @@ public:
     {}
   };
 
-  typedef boost::adjacency_matrix<boost::undirectedS, VertexProperties> Graph;
+  //typedef boost::adjacency_matrix<boost::undirectedS, VertexProperties> Graph;
+  typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::undirectedS, VertexProperties> Graph;
   using point_type = typename boost::graph_traits<Graph>::vertex_descriptor;
   using value_type = T;
   using pixel_type = std::pair<point_type, value_type>;
@@ -25,7 +27,7 @@ public:
 
   using vertex_iter = typename boost::graph_traits<Graph>::vertex_iterator;
 
-  Graphadapter(Graph graph);
+  Graphadapter(Graph* graph);
   const_reference operator()(point_type p) const;
   reference operator()(point_type p);
 
@@ -38,7 +40,7 @@ public:
   auto pixels();
 
 private:
-  Graph graph_;
+  Graph* graph_;
 };
 
 #include "graphadapter.hxx"
