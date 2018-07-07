@@ -6,7 +6,7 @@
 #include <iostream>
 
 template <class T>
-Graphadapter<T>::Graphadapter(Graph graph)
+Graphadapter<T>::Graphadapter(Graph* graph)
   : graph_(graph)
 {
 }
@@ -26,16 +26,19 @@ T& Graphadapter<T>::operator()(point_type p)
 template <class T>
 auto Graphadapter<T>::domain() const
 {
-  return ranges::view::iota(vertex(0, graph_), vertex(num_vertices(graph_), graph_));
+  auto first = *vertices(*graph_).first;
+  auto second = *vertices(*graph_).second;
+  return ranges::view::iota(first, second);
 }
 
 template <class T>
 auto Graphadapter<T>::values() const
 {
-  std::vector<T> tmp;
-  for (auto i : boost::vertices(graph_))
-    tmp.push_back(i.values());
-  return ranges::view::counted(tmp.get(), num_vertices(graph_));
+  std::vector<point_type> tmp;
+  std::pair<vertex_iter, vertex_iter> vp = boost::vertices(*graph_);
+  for (; vp.first != vp.second; ++vp.first)
+    tmp.push_back((*graph_)[*vp.first].value_);
+  return ranges::view::counted(tmp.begin(), tmp.size());
 }
 
 
@@ -43,15 +46,10 @@ template <class T>
 auto Graphadapter<T>::values()
 {
   std::vector<point_type> tmp;
-  std::pair<vertex_iter, vertex_iter> vp = boost::vertices(graph_);
+  std::pair<vertex_iter, vertex_iter> vp = boost::vertices(*graph_);
   for (; vp.first != vp.second; ++vp.first)
-  {
-    *vp.first;
-    tmp.push_back(*vp.first);
-  }
-  return ranges::view::counted(tmp.begin(), num_vertices(graph_));
-
-  //return ranges::view::counted(vp.first.weight, num_vertices(graph_));
+    tmp.push_back((*graph_)[*vp.first].value_);
+  return ranges::view::counted(tmp.begin(), tmp.size());
 }
 
 template <class T>
