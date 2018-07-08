@@ -3,6 +3,8 @@
 
 #include "graphadapter.hh"
 
-int main() {
+int
+main()
+{
   return 0;
 }
