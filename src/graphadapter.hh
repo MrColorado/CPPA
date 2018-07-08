@@ -17,7 +17,6 @@ public:
     {}
   };
 
-  //typedef boost::adjacency_matrix<boost::undirectedS, VertexProperties> Graph;
   typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::undirectedS, VertexProperties> Graph;
   using point_type = typename boost::graph_traits<Graph>::vertex_descriptor;
   using value_type = T;
