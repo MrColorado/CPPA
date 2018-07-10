@@ -2,10 +2,11 @@
 
 ## How to run the project
 
-```
+```sh
 mkdir build
 cd build
-cmake RELEASE ..
+cmake -DCMAKE_BUILD_TYPE=Release ..
+make
 ./test
 ```
 
@@ -17,12 +18,24 @@ First you need to specify two templates :
 
 ### Methodes avaibles
 
-```
-domain() Retourne une Range des points du domaine de l'image
-values() Retourne une Range de valeurs constantes de l'image
-values() Retourne une Range de valeurs mutables de l'image
-pixels() Retourne une Range des pixels (point+valeur constantes) d'une image
-pixels() Retourne une Range des pixels (point+valeur mutables) d'une image
+```cpp
+domain() Return a range of points whithin the domain of the picture
+values() Return a range of constant values of the picture
+values() Return a range of mutable values of the picture
+pixels() Return a range of pixels (point + constant value) of the picture
+pixels() Return a range of pixels (point + mutable value) of the picture
 ```
 
 ## Image Adapter
+
+You need to provide a picture and a neighbour description needed to get
+adjacent vertices.
+
+### Methodes avaibles
+
+```cpp
+vertices() Return a range of all vertices.
+adjacent_vertices(vertex_descriptor) Return a range of adjacent vertices.
+num_vertices() Return the number of vertices.
+```
+
